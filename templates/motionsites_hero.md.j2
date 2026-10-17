@@ -1,0 +1,51 @@
+# PROMPT — Recreate the "{{ brand_name }}" Hero Section Exactly
+
+Build a pixel-exact, fully responsive landing page using HTML5, Tailwind CSS, and React.
+
+## 1. PAGE ARCHITECTURE & VIEWPORT
+{% if page_mode == 'fixed_single_screen' %}
+- Section Constraint: `w-full h-screen overflow-hidden bg-['{{ bg_color }}']`
+- Scroll Policy: Strictly single-viewport with NO vertical scrolling allowed (`overflow: hidden`).
+{% else %}
+- Section Constraint: `w-full min-h-screen bg-['{{ bg_color }}']`
+- Scroll Policy: Multi-section landing page layout allowing smooth vertical scrolling.
+{% endif %}
+
+## 2. TYPOGRAPHY & DESIGN TOKENS
+- Primary Font: '{{ font_family }}', sans-serif.
+- Primary Accent Color: `{{ accent_color }}`
+- Text Primary: `{{ text_primary }}`
+- Text Secondary: `{{ text_secondary }}`
+- Glassmorphic Elements: `background: rgba(255,255,255,0.05); backdrop-filter: blur({{ glass_blur }}); border: 1px solid rgba(255,255,255,0.1);`
+- Button Radius: `{{ button_radius }}`
+
+## 3. LAYOUT SPECIFICATIONS & COPY
+- Brand Name: "{{ brand_name }}"
+{% if layout_type == 'center_stack' %}
+- Layout Architecture: Centered Stack Column
+- Container: Centered max-w-[800px] mx-auto, flex flex-col items-center text-center.
+- H1 Headline: "{{ h1_text }}" (font-black, leading-[0.95], tracking-tight, color: {{ text_primary }}).
+- Subhead: "{{ subhead_text }}" (color: {{ text_secondary }}, max-w-[480px], mt-6).
+- Primary CTA: Button label "{{ primary_cta }}", rounded: {{ button_radius }}, px-8 py-3.5, background: {{ accent_color }}.
+{% if secondary_cta %}
+- Secondary CTA: Button label "{{ secondary_cta }}", rounded: {{ button_radius }}, px-8 py-3.5, border border-white/30.
+{% endif %}
+{% else %}
+- Layout Architecture: Split Two-Column Grid
+- Container: Two-column layout (max-w-[1400px] mx-auto, flex flex-row items-center justify-between gap-12).
+- Left Column (50%): Text block containing H1 ("{{ h1_text }}"), Subhead ("{{ subhead_text }}"), and CTA ("{{ primary_cta }}").
+- Right Column (50%): Interactive Showcase Container / Glassmorphic Card ({{ right_column_type }}).
+{% endif %}
+
+## 4. NAVIGATION SPECIFICATIONS
+- Nav Style: {{ nav_style }}
+- Nav Links: {{ nav_links }}
+- Right Auth Button: "{{ nav_cta }}"
+
+## 5. NON-NEGOTIABLE SPACING & PIXEL CONTRACTS
+- Navigation: Height 52px, horizontal padding `px-6`, glassmorphic background with blur({{ glass_blur }}).
+- CTA Buttons: MUST maintain explicit `px-8 py-3.5` padding. DO NOT allow button text to touch rounded boundaries.
+- Animation Easing: `cubic-bezier(0.16, 1, 0.3, 1)` with `forwards` fill mode.
+{% if page_mode == 'fixed_single_screen' %}
+- Critical Rule: The page section MUST fit within 100vh. No layout shifts or outer scrollbars permitted.
+{% endif %}
