@@ -92,8 +92,14 @@
 
 
 ## 统一交付与视觉规则
+此提示词经过提炼而成，适合在网站开发初期进行配色和landing page的整体样式浏览，通过选择不同的模版类型，找到符合需求的样式，后期可对提示词就行自定义修改，也可以创建自己的模版，放到模版目录中，刷新页面就可以显示在模版列表中。
 
 全部模板要求在支持网页预览的大模型中直接打开交互页面，不在对话中输出代码。导航保留配置菜单的原文和顺序，显示品牌 Logo（缺省使用原创 SVG），使用独立中性色半透明背景，并与正文保留间距；行业配色建议在内部应用，不显示到网页上。
 
 视频模板现均使用覆盖 Header + Hero 的全屏背景，保留各自素材和前景设计元素，旧名称中的 Window、Card、Filmstrip、Mask 等不再表示视频播放窗口。桌面静音循环播放，不显示素材详情或播放控件；手机、减少动态效果及省流量模式显示全屏封面。背景类代码动画覆盖 Header + Hero，卡片和产品交互保留在前景组件内。
 
+This prompt has been refined to assist with color scheme selection and the overall styling of landing pages during the early stages of web development. Users can explore various template types to find a style that meets their requirements. The prompt can be customized further, and users can even create their own templates—simply add them to the template directory and refresh the page to see them appear in the selection list.
+
+All templates are designed to render as interactive, previewable web pages directly within the AI ​​model’s interface, rather than outputting raw code in the chat. The navigation bar must retain the original configuration menu items and their sequence; it should display a brand logo (defaulting to an original SVG), feature a semi-transparent, neutral-toned background, and maintain proper spacing from the main content. Industry-specific color palettes are intended for internal reference only and should not be displayed on the rendered web page.
+
+Video-based templates now utilize a full-screen background that spans both the Header and Hero sections, while preserving their respective assets and foreground design elements. Terms such as "Window," "Card," "Filmstrip," or "Mask"—previously used in template names—no longer denote specific video playback windows. On desktop, videos play in a muted, looped format without displaying asset details or playback controls. On mobile devices—or when "reduced motion" or "data-saver" modes are active—the templates will display a full-screen static cover image instead. Background-based programmatic animations cover the Header and Hero areas, while interactive elements like cards and product components remain contained within the foreground layer.
