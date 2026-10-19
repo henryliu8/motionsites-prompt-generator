@@ -1,0 +1,110 @@
+# PROMPT — Build the "{{ brand_name }}" Developer Terminal Hero
+
+Build a fully responsive landing page using HTML5, Tailwind CSS, and React. Implement it and open the working page in the host's live preview, canvas or browser so the user sees the finished visual result directly. Keep source code in the project files; do not display code blocks, file contents, implementation instructions or design commentary in the final response. The deliverable is an interactive page preview, not a screenshot or a video render. If the host cannot render or open a preview, state that limitation briefly rather than claiming a preview exists or dumping code.
+
+## OUTPUT MODE — RENDER THE PAGE DIRECTLY
+- Treat this prompt as an instruction to build and display the website now. Do not answer with a plan, a tutorial, a code listing, or a request for permission to begin.
+- Use the host's native website/app artifact, Canvas, sandbox or live-preview tool. Create executable files through that tool, run the page, and open its rendered Preview view automatically. If the tool offers Code and Preview tabs, select Preview for the user.
+- Put all required implementation code inside the executable artifact or project, never in the conversational reply. A Markdown HTML/JSX code fence, escaped HTML, source-code text or a download-only HTML file does not satisfy this request.
+- Resolve dependencies and start a preview server when the host requires one. Finish with the rendered, interactive website visible; if the host requires navigation to a separate preview, provide its working link with one short sentence only. Do not ask the user to copy code, save files, install dependencies or switch to Preview manually.
+- Apply the design and color decisions below internally. Do not show this specification, palette tables, reasoning, test logs or implementation commentary as page content or as the final answer.
+- Capability fallback: if this host has no executable artifact, browser or preview tool, respond only with a brief statement that this environment cannot display an interactive webpage preview. Do not substitute code or pretend that a preview was rendered. A prompt cannot enable rendering capabilities that the host does not provide.
+
+## 1. PAGE ARCHITECTURE & VIEWPORT
+{% if page_mode == 'fixed_single_screen' %}
+- Single-screen composition: `height: 100svh; width: 100%; overflow: hidden`. Include navigation inside this height. Do not append lower sections or a footer.
+- Use a grid with `auto minmax(0, 1fr)` rows for navigation and Hero; shrink or remove decorative visuals first when height is limited. Keep headline, subhead and CTA reachable.
+- At short heights, landscape phones or 200% text zoom, accessibility wins: allow vertical overflow if essential content cannot fit; never clip text or interactive controls.
+{% else %}
+- Multi-section composition: `min-height: 100svh`, natural document flow and vertical scrolling; no fixed body height or scroll hijacking.
+- After the Hero, add the continuation specified below. Use `scroll-margin-top: 88px` on navigation targets and stable section IDs.
+{% endif %}
+- Outer canvas: `background-color: {{ bg_color }}`. Use CSS custom properties or inline styles for supplied colors; do not construct dynamic Tailwind class names.
+- Desktop container: `max-width: 1280px; margin-inline: auto`, 48px gutters; tablet 32px; mobile 20px. Breakpoints: 640px and 1024px.
+- The named template owns the structural grid. The selected alignment controls the copy placement within that grid, without replacing the template's defining composition.
+{% if layout_type == 'center_stack' %}
+- Copy alignment: centered headline, subhead and CTA group within the designated copy region; keep its stated maximum width.
+{% else %}
+- Copy alignment: left-aligned headline, subhead and CTA group within the designated copy region.
+- If a product surface is specified, interpret it as: {{ right_column_type }}; keep the named template's frame and proportions.
+{% endif %}
+
+## 2. TYPOGRAPHY & DESIGN TOKENS
+- Primary Font: '{{ font_family }}', system-ui, sans-serif. Use a supplied licensed font asset when available; otherwise use the fallback without blocking rendering.
+- Background: `{{ bg_color }}`; Primary Accent: `{{ accent_color }}`; Text Primary: `{{ text_primary }}`; Text Secondary: `{{ text_secondary }}`.
+- Define `--bg`, `--accent`, `--text`, `--muted` from these values. Preserve the supplied brand tokens, but define independent role tokens `--nav-bg`, `--nav-text`, `--nav-border`, `--scrim-rgb` and `--on-accent`. The Header surface must not inherit `--bg` or `--accent`; a saturated Hero background is not a navigation surface or a full-video color wash.
+- H1 baseline: `font-size: clamp(2.25rem, 5.6vw, 5.5rem); line-height: 1.02; letter-spacing: -0.045em; font-weight: 700`. Template-specific display sizing may override this.
+- Body: 16–18px, line-height 1.6, maximum 52ch. Eyebrows: 12px/1.4, tracking .12em. Do not apply uppercase tracking to long body text.
+- Glass only where called for: translucent surface, `backdrop-filter: blur({{ glass_blur }})`, 1px low-contrast border; provide an opaque fallback.
+- Button Radius: `{{ button_radius }}`. Cards use their own geometry; do not give every element a pill shape.
+- Validate color contrast with the chosen tokens; adjust local surface overlays or button foreground as needed for 4.5:1 body text. Never assume white text works on every accent.
+
+### Industry-Aware Color Direction
+- Infer the likely industry only from the supplied brand description, headline and subhead, not the brand name alone. If ambiguous, use the first row below as a neutral enterprise direction. Do not invent company facts. This is internal design guidance, not an industry claim or visible page content.
+- Select the color direction internally and apply it directly to the rendered result: Header surface/text, Hero scrim, supplied CTA color and its readable foreground. Do not output a color recommendation, design rationale or palette table before or after the preview, or place these notes on the website.
+- Use the relevant row for neutral Header and scrim roles. The suggested accent is a reference for an explicitly requested palette change only; otherwise implement the supplied `--accent`. These are starting points for this template, not universal industry rules.
+
+| Industry / direction | Header surface / text | Hero scrim RGB | Optional accent recommendation |
+| --- | --- | --- | --- |
+| Enterprise AI, SaaS, data, or unspecified — graphite | `#141820` / `#F5F7FA` | `12, 16, 24` | Cool teal `#65D6CE` |
+| Finance, legal, consulting — warm ivory | `#F3EFE7` / `#20282C` | `20, 29, 32` | Deep teal `#176B65` |
+| Architecture, property, luxury — limestone | `#E8E2D8` / `#292723` | `26, 25, 23` | Bronze `#A97545` |
+| Climate, energy, sustainability — forest charcoal | `#18231E` / `#F2F4EC` | `16, 28, 22` | Lime `#C8DC83` |
+| Healthcare, wellbeing — soft mineral | `#EDF3F0` / `#203A35` | `18, 35, 31` | Teal `#227C73` |
+| Creative, media, culture — ink and coral | `#211E23` / `#FAF4EF` | `25, 21, 26` | Coral `#F28A73` |
+
+- Default for enterprise/data copy: graphite Header, near-white menu text, natural media colors with a charcoal readability gradient, and the supplied accent on the primary CTA. Even if `--bg` is vivid blue, do not produce a blue Header plus a blue/purple Hero wash. If the chosen neutral Header still merges into the Hero, use the warm-ivory Header/text pair for visible light/dark separation.
+- Preserve natural media colors. Use neutral scrims for readability: start around 0.60–0.78 opacity behind copy, fading to 0.08–0.24 over open background areas; adjust locally for contrast rather than increasing a saturated overlay across the whole frame. Do not use multiply/color blend modes or a blue-to-purple filter over the entire visual.
+- Reserve saturated brand color for the primary CTA, small indicators and restrained hover/focus details. Keep secondary CTA and navigation surfaces neutral. Give the navigation CTA its own contrasting neutral foreground/background pair so it remains distinct from both the menu surface and the Hero CTA.
+
+## 3. LAYOUT SPECIFICATIONS & COPY
+- Brand Name: "{{ brand_name }}".
+- H1 Headline: "{{ h1_text }}". Preserve this exact copy and render one semantic H1; wrap naturally with `text-wrap: balance` rather than fixed line breaks.
+- Subhead: "{{ subhead_text }}". Preserve exact copy, 24px below headline unless the composition specifies otherwise.
+- Primary CTA: "{{ primary_cta }}"; background `{{ accent_color }}`, radius `{{ button_radius }}`, explicit `px-8 py-3.5`, minimum height 48px.
+{% if secondary_cta %}
+- Secondary CTA: "{{ secondary_cta }}"; outline style, same height and padding, 12px gap from primary.
+{% else %}
+- Omit the secondary CTA completely, including its wrapper spacing.
+{% endif %}
+- CTA group: wrap or stack below 640px; never squeeze labels. Use real links to implemented destinations or buttons that open a working in-page action.
+- Additional examples must be labeled as demo content. Do not fabricate customer endorsements, certifications, prices, performance claims or customer logos.
+
+### Signature Composition — Documentation Meets Product
+- Desktop: 5/7 split. Copy block has an outlined “Developer preview” eyebrow; the other block is a terminal/editor panel with a 44px tab bar.
+- Use the selected font for marketing copy and `ui-monospace` for code. Terminal code is 14px/1.7 with line numbers, restrained syntax accents and no fake shell prompts that imply a live server.
+- Include two working tabs: Request and Response. Request shows a short clearly illustrative JSON request; Response shows a static example object labeled demo output.
+- Place a copy-code button in the tab bar with accessible success/failure feedback; do not include secrets or a command that downloads and executes remote code.
+- Under the terminal show three compact text labels for integration stages, separated by hairlines rather than feature cards.
+- Mobile: copy first, terminal second, horizontal scrolling only inside the code block. Hide secondary code lines in short single-screen mode while preserving copy-button access.
+
+## 4. NAVIGATION SPECIFICATIONS
+- Nav Style: {{ nav_style }}. Brand left; comma-separated Nav Links: {{ nav_links }}; right CTA: "{{ nav_cta }}".
+- Render a visible logo mark AND the exact brand name. Use a supplied brand logo asset if available. Otherwise choose an original geometric SVG mark or a brand-initial monogram, 32–40px square, with a recognizable silhouette; a tiny glowing dot or plain brand text alone is not a logo. Choose the fallback once during implementation, not randomly on each render. Do not borrow another company's logo or rely on an unverified remote image. If an image fails, show the inline SVG fallback. Keep the adjacent wordmark readable and the combined brand link accessibly named.
+- Navigation labels are an exact content contract: split the supplied `{{ nav_links }}` on commas, trim whitespace, discard empty items and preserve every remaining label, its capitalization and its order. Desktop navigation and the mobile menu must use the same list. Do not replace configured items with generated section names such as Process or FAQ, and do not add, rename or omit items to match the page's continuation sections.
+- Required menu labels, in this exact order:
+{% for item in nav_links.split(',') if item.strip() %}
+  - "{{ item.strip() }}"
+{% endfor %}
+- Use section anchors only when the matching section exists; otherwise open an implemented panel with content relevant to the original menu label. No dead `href="#"` links. Missing destinations must be implemented without changing the configured menu text.
+- Render only the configured navigation style: `{{ nav_style }}`. Do not expose a “Nav Style” switcher, Glass Pill / Full Width toggle, theme picker or other generator settings on the finished website.
+- Glass Pill: centered floating nav, 52px minimum height, 24px inner horizontal padding, 20px top margin, blur({{ glass_blur }}), max-width 1184px. Use `--nav-bg` at 0.68–0.80 alpha, `--nav-text` and a subtle `--nav-border`, with an opaque fallback on the pill only when backdrop blur is unsupported. Apply alpha to the background color, never `opabackground` to the entire navigation; logo, labels and buttons stay fully opaque. The background must remain subtly visible through the surface. It must read as an independent neutral navigation surface over the background, not a brand-colored transparent pill.
+- Full Width: full-width header with the same inner container, 64px minimum height and a subtle bottom border. Use `--nav-bg` at 0.72–0.84 alpha, `backdrop-filter: blur({{ glass_blur }})` and `--nav-text` for translucent separation from the Hero; retain an opaque fallback when blur is unsupported. Apply transparency only to the surface, not its text or children. The video still extends beneath it across the entire shell; do not push the media down below the Header or add an empty band.
+- Below 768px replace desktop links with a labeled menu button. Support keyboard opening, Escape, focus return and `aria-expanded`; overlay must sit above all visuals and remain scrollable.
+
+## 5. NON-NEGOTIABLE SPACING & PIXEL CONTRACTS
+- Keep at least 32px between the Header bottom and the first Hero copy element (24px on mobile). This spacing is over the shared background, not a separate solid band. Keep navigation visibly distinct from the Hero using its independent neutral surface.
+- Use an 8px spacing rhythm: 16/24px inside cards, 32/48px between major groups, 80–112px between lower sections on desktop and 48–64px on mobile.
+- Keep content in normal flow; absolute positioning is reserved for decoration inside a bounded stage. Use `min-width: 0` on grid children and avoid viewport-wide negative margins.
+- Visible focus rings, 44px minimum interactive targets, semantic landmarks and heading hierarchy. Decorative layers are `aria-hidden` and `pointer-events: none`.
+- At 360×800, 768×1024, 1440×900 and a short landscape viewport: no horizontal overflow, no overlapping nav/headline/CTAs; essential content stays readable.
+- Check long supplied titles, empty secondary CTA, both alignment modes, keyboard navigation and 200% zoom. Reserve media dimensions to prevent layout shift.
+
+## 6. INTERACTION & CONTINUATION
+- This is a layout-led template: no autoplay video, canvas scene or perpetual background animation.
+- Hover/focus transitions: 160–220ms on color, border or a maximum 2px lift. Keep the static layout fully usable with `prefers-reduced-motion: reduce`.
+{% if page_mode != 'fixed_single_screen' %}
+- Continue with: a documented integration flow, a minimal API example and an FAQ. Use the same typography and grid; finish with a compact brand footer.
+{% endif %}
+- Verify every visible control has an implemented action.
+- Deliver the finished interactive page in live preview, not code blocks or setup instructions. Keep implementation and attribution in project files; do not show generator settings, palette notes, Asset Details or media toolbars on the website.

@@ -1,0 +1,122 @@
+[
+  {
+    "template": "video_cinematic_full_bleed.md.j2",
+    "name_zh": "全屏电影感",
+    "source_title": "Sunset on a beach with a palm tree",
+    "source_page": "https://mixkit.co/free-stock-video/sunset-on-a-beach-with-a-palm-tree-44499/",
+    "mp4": "https://assets.mixkit.co/videos/44499/44499-720.mp4",
+    "low_bandwidth_mp4": "https://assets.mixkit.co/videos/44499/44499-360.mp4",
+    "poster": "https://assets.mixkit.co/videos/44499/44499-thumb-720-0.jpg",
+    "license": "Mixkit Stock Video Free License",
+    "license_url": "https://mixkit.co/license/#videoFree",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "template": "video_split_city.md.j2",
+    "name_zh": "城市左右分屏",
+    "source_title": "Corporate and business buildings in the city.",
+    "source_page": "https://mixkit.co/free-stock-video/corporate-and-business-buildings-in-the-city-4170/",
+    "mp4": "https://assets.mixkit.co/videos/4170/4170-720.mp4",
+    "low_bandwidth_mp4": "https://assets.mixkit.co/videos/4170/4170-360.mp4",
+    "poster": "https://assets.mixkit.co/videos/4170/4170-thumb-720-0.jpg",
+    "license": "Mixkit Stock Video Free License",
+    "license_url": "https://mixkit.co/license/#videoFree",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "template": "video_rounded_sky_window.md.j2",
+    "name_zh": "圆角天空视频窗口",
+    "source_title": "White clouds moving across a clear blue sky quickly",
+    "source_page": "https://mixkit.co/free-stock-video/white-clouds-moving-across-a-clear-blue-sky-quickly-51105/",
+    "mp4": "https://assets.mixkit.co/videos/51105/51105-720.mp4",
+    "low_bandwidth_mp4": "https://assets.mixkit.co/videos/51105/51105-360.mp4",
+    "poster": "https://assets.mixkit.co/videos/51105/51105-thumb-720-0.jpg",
+    "license": "Mixkit Stock Video Free License",
+    "license_url": "https://mixkit.co/license/#videoFree",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "template": "video_creek_bento.md.j2",
+    "name_zh": "溪流视频 Bento",
+    "source_title": "Flying over a relaxing creek full of rock on the countryside",
+    "source_page": "https://mixkit.co/free-stock-video/flying-over-a-relaxing-creek-full-of-rock-on-the-51585/",
+    "mp4": "https://assets.mixkit.co/videos/51585/51585-720.mp4",
+    "low_bandwidth_mp4": "https://assets.mixkit.co/videos/51585/51585-360.mp4",
+    "poster": "https://assets.mixkit.co/videos/51585/51585-thumb-720-0.jpg",
+    "license": "Mixkit Stock Video Free License",
+    "license_url": "https://mixkit.co/license/#videoFree",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "template": "video_ink_typographic_mask.md.j2",
+    "name_zh": "文字遮罩视频",
+    "source_title": "Abstract video of a liquid with dark ink flowing",
+    "source_page": "https://mixkit.co/free-stock-video/abstract-video-of-a-liquid-with-dark-ink-flowing-44818/",
+    "mp4": "https://assets.mixkit.co/videos/44818/44818-720.mp4",
+    "low_bandwidth_mp4": "https://assets.mixkit.co/videos/44818/44818-360.mp4",
+    "poster": "https://assets.mixkit.co/videos/44818/44818-thumb-720-0.jpg",
+    "license": "Mixkit Stock Video Free License",
+    "license_url": "https://mixkit.co/license/#videoFree",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "template": "video_portrait_coast.md.j2",
+    "name_zh": "竖屏海岸展示",
+    "source_title": "Overhead view of a rocky coast and waves crashing",
+    "source_page": "https://mixkit.co/free-stock-video/overhead-view-of-a-rocky-coast-and-waves-crashing-51502/",
+    "mp4": "https://assets.mixkit.co/videos/51502/51502-720.mp4",
+    "low_bandwidth_mp4": "https://assets.mixkit.co/videos/51502/51502-360.mp4",
+    "poster": "https://assets.mixkit.co/videos/51502/51502-thumb-720-0.jpg",
+    "license": "Mixkit Stock Video Free License",
+    "license_url": "https://mixkit.co/license/#videoFree",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "template": "video_aurora_filmstrip.md.j2",
+    "name_zh": "极光横向胶片带",
+    "source_title": "Yellow northern lights in Norway",
+    "source_page": "https://mixkit.co/free-stock-video/yellow-northern-lights-in-norway-4036/",
+    "mp4": "https://assets.mixkit.co/videos/4036/4036-720.mp4",
+    "low_bandwidth_mp4": "https://assets.mixkit.co/videos/4036/4036-360.mp4",
+    "poster": "https://assets.mixkit.co/videos/4036/4036-thumb-720-0.jpg",
+    "license": "Mixkit Stock Video Free License",
+    "license_url": "https://mixkit.co/license/#videoFree",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "template": "video_floating_bokeh_card.md.j2",
+    "name_zh": "悬浮视频卡片",
+    "source_title": "Blurred abstract cars lights at night with bokeh effect",
+    "source_page": "https://mixkit.co/free-stock-video/blurred-abstract-cars-lights-at-night-with-bokeh-effect-30/",
+    "mp4": "https://assets.mixkit.co/videos/30/30-720.mp4",
+    "low_bandwidth_mp4": "https://assets.mixkit.co/videos/30/30-360.mp4",
+    "poster": "https://assets.mixkit.co/videos/30/30-thumb-720-2.jpg",
+    "license": "Mixkit Stock Video Free License",
+    "license_url": "https://mixkit.co/license/#videoFree",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "template": "video_architectural_space.md.j2",
+    "name_zh": "建筑空间",
+    "source_title": "Luxury hotel room panning shot",
+    "source_page": "https://mixkit.co/free-stock-video/luxury-hotel-room-panning-shot-4196/",
+    "mp4": "https://assets.mixkit.co/videos/4196/4196-720.mp4",
+    "low_bandwidth_mp4": "https://assets.mixkit.co/videos/4196/4196-360.mp4",
+    "poster": "https://assets.mixkit.co/videos/4196/4196-thumb-720-0.jpg",
+    "license": "Mixkit Stock Video Free License",
+    "license_url": "https://mixkit.co/license/#videoFree",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "template": "video_forest_atmosphere.md.j2",
+    "name_zh": "自然氛围",
+    "source_title": "Gloomy forest full of trees during a rainy afternoon",
+    "source_page": "https://mixkit.co/free-stock-video/gloomy-forest-full-of-trees-during-a-rainy-afternoon-22729/",
+    "mp4": "https://assets.mixkit.co/videos/22729/22729-720.mp4",
+    "low_bandwidth_mp4": "https://assets.mixkit.co/videos/22729/22729-360.mp4",
+    "poster": "https://assets.mixkit.co/videos/22729/22729-thumb-720-0.jpg",
+    "license": "Mixkit Stock Video Free License",
+    "license_url": "https://mixkit.co/license/#videoFree",
+    "checked_on": "2026-10-18"
+  }
+]

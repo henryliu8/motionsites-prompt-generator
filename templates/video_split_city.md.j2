@@ -1,0 +1,134 @@
+# PROMPT — Build the "{{ brand_name }}" Split City Video Hero
+
+Build a fully responsive landing page using HTML5, Tailwind CSS, and React. Implement it and open the working page in the host's live preview, canvas or browser so the user sees the finished visual result directly. Keep source code in the project files; do not display code blocks, file contents, implementation instructions or design commentary in the final response. The deliverable is an interactive page preview, not a screenshot or a video render. If the host cannot render or open a preview, state that limitation briefly rather than claiming a preview exists or dumping code.
+
+## OUTPUT MODE — RENDER THE PAGE DIRECTLY
+- Treat this prompt as an instruction to build and display the website now. Do not answer with a plan, a tutorial, a code listing, or a request for permission to begin.
+- Use the host's native website/app artifact, Canvas, sandbox or live-preview tool. Create executable files through that tool, run the page, and open its rendered Preview view automatically. If the tool offers Code and Preview tabs, select Preview for the user.
+- Put all required implementation code inside the executable artifact or project, never in the conversational reply. A Markdown HTML/JSX code fence, escaped HTML, source-code text or a download-only HTML file does not satisfy this request.
+- Resolve dependencies and start a preview server when the host requires one. Finish with the rendered, interactive website visible; if the host requires navigation to a separate preview, provide its working link with one short sentence only. Do not ask the user to copy code, save files, install dependencies or switch to Preview manually.
+- Apply the design and color decisions below internally. Do not show this specification, palette tables, reasoning, test logs or implementation commentary as page content or as the final answer.
+- Capability fallback: if this host has no executable artifact, browser or preview tool, respond only with a brief statement that this environment cannot display an interactive webpage preview. Do not substitute code or pretend that a preview was rendered. A prompt cannot enable rendering capabilities that the host does not provide.
+
+## 1. PAGE ARCHITECTURE & VIEWPORT
+{% if page_mode == 'fixed_single_screen' %}
+- Single-screen composition: one shared `.hero-shell` containing Header and Hero, `height: 100svh; width: 100%; overflow: hidden`. Include navigation inside this height. Do not append lower sections or a footer.
+- Use a grid with `auto minmax(0, 1fr)` rows for Header and Hero inside this shell. The video spans the entire shell behind both rows; never restrict it to the Hero row. Reduce content spacing and display type size first when height is limited. Keep headline, subhead and CTA reachable.
+- At short heights, landscape phones or 200% text zoom, accessibility wins: allow vertical overflow if essential content cannot fit; never clip text or interactive controls.
+{% else %}
+- Multi-section composition: Header and Hero share one `.hero-shell` with `min-height: 100svh` and `auto minmax(0, 1fr)` grid rows. Its background video covers both rows. Lower sections follow outside this shell in natural document flow; no fixed body height or scroll hijacking.
+- After the Hero, add the continuation specified below. Use `scroll-margin-top: 88px` on navigation targets and stable section IDs.
+{% endif %}
+- Outer canvas: `background-color: {{ bg_color }}`. Use CSS custom properties or inline styles for supplied colors; do not construct dynamic Tailwind class names.
+- The shell and video are edge-to-edge, with no body margin, outer page padding, max-width or rounded frame. Only navigation and foreground copy use a desktop container: `width: 100%; max-width: 1280px; margin-inline: auto; box-sizing: border-box`, 48px gutters; tablet 32px; mobile 20px. Breakpoints: 640px and 1024px.
+- This template's defining composition is a full-viewport city background shared by Header and Hero. The selected alignment changes only the foreground copy placement.
+{% if layout_type == 'center_stack' %}
+- Copy alignment: centered headline, subhead and CTA group within the designated copy region; keep its stated maximum width.
+{% else %}
+- Copy alignment: left-aligned headline, subhead and CTA group within the designated copy region.
+- Requested product surface: {{ right_column_type }}. Omit it in this template so it does not replace, shrink or frame the full-screen city background.
+{% endif %}
+
+## 2. TYPOGRAPHY & DESIGN TOKENS
+- Primary Font: '{{ font_family }}', system-ui, sans-serif. Use a supplied licensed font asset when available; otherwise use the fallback without blocking rendering.
+- Background: `{{ bg_color }}`; Primary Accent: `{{ accent_color }}`; Text Primary: `{{ text_primary }}`; Text Secondary: `{{ text_secondary }}`.
+- Define `--bg`, `--accent`, `--text`, `--muted` from these values. Preserve the supplied brand tokens, but define independent role tokens `--nav-bg`, `--nav-text`, `--nav-border`, `--scrim-rgb` and `--on-accent`. The Header surface must not inherit `--bg` or `--accent`; a saturated Hero background is not a navigation surface or a full-video color wash.
+- H1 baseline: `font-size: clamp(2.25rem, 5.6vw, 5.5rem); line-height: 1.02; letter-spacing: -0.045em; font-weight: 700`. Template-specific display sizing may override this.
+- Body: 16–18px, line-height 1.6, maximum 52ch. Eyebrows: 12px/1.4, tracking .12em. Do not apply uppercase tracking to long body text.
+- Glass only where called for: translucent surface, `backdrop-filter: blur({{ glass_blur }})`, 1px low-contrast border; provide an opaque fallback.
+- Button Radius: `{{ button_radius }}`. Cards use their own geometry; do not give every element a pill shape.
+- Validate color contrast with the chosen tokens; adjust local surface overlays or button foreground as needed for 4.5:1 body text. Never assume white text works on every accent.
+
+### Industry-Aware Color Direction
+- Infer the likely industry only from the supplied brand description, headline and subhead, not the brand name alone. If ambiguous, use the first row below as a neutral enterprise direction. Do not invent company facts. This is internal design guidance, not an industry claim or visible page content.
+- Select the color direction internally and apply it directly to the rendered result: Header surface/text, Hero scrim, supplied CTA color and its readable foreground. Do not output a color recommendation, design rationale or palette table before or after the preview, or place these notes on the website.
+- Use the relevant row for neutral Header and scrim roles. The suggested accent is a reference for an explicitly requested palette change only; otherwise implement the supplied `--accent`. These are starting points for this city-footage template, not universal industry rules.
+
+| Industry / direction | Header surface / text | Hero scrim RGB | Optional accent recommendation |
+| --- | --- | --- | --- |
+| Enterprise AI, SaaS, data, or unspecified — graphite | `#141820` / `#F5F7FA` | `12, 16, 24` | Cool teal `#65D6CE` |
+| Finance, legal, consulting — warm ivory | `#F3EFE7` / `#20282C` | `20, 29, 32` | Deep teal `#176B65` |
+| Architecture, property, luxury — limestone | `#E8E2D8` / `#292723` | `26, 25, 23` | Bronze `#A97545` |
+| Climate, energy, sustainability — forest charcoal | `#18231E` / `#F2F4EC` | `16, 28, 22` | Lime `#C8DC83` |
+| Healthcare, wellbeing — soft mineral | `#EDF3F0` / `#203A35` | `18, 35, 31` | Teal `#227C73` |
+| Creative, media, culture — ink and coral | `#211E23` / `#FAF4EF` | `25, 21, 26` | Coral `#F28A73` |
+
+- Default for enterprise/data copy: graphite Header, near-white menu text, natural city footage with a charcoal readability gradient, and the supplied accent on the primary CTA. Even if `--bg` is vivid blue, do not produce a blue Header plus a blue/purple Hero wash. If the chosen neutral Header still merges into the Hero, use the warm-ivory Header/text pair for visible light/dark separation.
+- Preserve natural sky, glass and building colors. Use neutral scrims for readability: start around 0.60–0.78 opacity behind copy, fading to 0.08–0.24 over open imagery; adjust locally for contrast rather than increasing a saturated overlay across the whole frame. Do not use multiply/color blend modes or a blue-to-purple filter over the entire video.
+- Reserve saturated brand color for the primary CTA, small indicators and restrained hover/focus details. Keep secondary CTA and navigation surfaces neutral. Give the navigation CTA its own contrasting neutral foreground/background pair so it remains distinct from both the menu surface and the Hero CTA.
+
+## 3. LAYOUT SPECIFICATIONS & COPY
+- Brand Name: "{{ brand_name }}".
+- H1 Headline: "{{ h1_text }}". Preserve this exact copy and render one semantic H1; wrap naturally with `text-wrap: balance` rather than fixed line breaks.
+- Subhead: "{{ subhead_text }}". Preserve exact copy, 24px below headline unless the composition specifies otherwise.
+- Primary CTA: "{{ primary_cta }}"; background `{{ accent_color }}`, radius `{{ button_radius }}`, explicit `px-8 py-3.5`, minimum height 48px.
+{% if secondary_cta %}
+- Secondary CTA: "{{ secondary_cta }}"; outline style, same height and padding, 12px gap from primary.
+{% else %}
+- Omit the secondary CTA completely, including its wrapper spacing.
+{% endif %}
+- CTA group: wrap or stack below 640px; never squeeze labels. Use real links to implemented destinations or buttons that open a working in-page action.
+- Additional examples must be labeled as demo content. Do not fabricate customer endorsements, certifications, prices, performance claims or customer logos.
+
+### Signature Composition — Full-Screen City Across Header and Hero
+- Required hierarchy: `.hero-shell > .hero-media (poster + video), .hero-scrim, header, main.hero-content`. In scrolling mode, continuation sections are siblings after `.hero-shell`. Keep semantic Header and Main landmarks; do not nest Header inside Main.
+- `.hero-shell { position: relative; isolation: isolate; }`; `.hero-media` and `.hero-scrim` use `position: absolute; inset: 0; pointer-events: none`. Layer media at `z-index: 0`, scrim at `1`, foreground copy at `2`, Header at `3`, and the open mobile menu above all of them. Avoid negative z-index.
+- The video and poster fill the same shared shell: `position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 0`. Do not apply a fixed aspect ratio, a card, a separate media column or a video block below the CTA at any breakpoint.
+- The same city media layer continues beneath Header and Hero without resizing or restarting at their boundary. The Header has its own visibly distinct neutral surface; this deliberate color separation does not split the underlying full-screen media. Use one continuous neutral scrim across the shell with an alignment-aware gradient behind copy, fading into the visible city. Use `--scrim-rgb` from the color direction, not the saturated `--bg` or `--accent`; do not cover the footage with an opaque full-width copy panel.
+- Header stays in the first grid row in normal flow. Give Hero content `padding-block: clamp(32px, 5svh, 72px)` so the first copy element is at least 32px below the Header's bottom (24px below on mobile). This gap is foreground breathing room over the same video, never an empty solid band or a downward offset of the video itself.
+- Center the copy vertically within the remaining Hero row when space allows. H1 max-width 560px; subhead max-width 52ch. Center alignment places copy over the center of the footage; split alignment places copy in the left portion while the right remains open city imagery, without creating a second media column.
+- Below 640px keep exactly the same edge-to-edge background behind Header and copy; adjust crop with `object-position` if needed. Use 20px content gutters and wrapping CTAs. Never stack a poster window below the text.
+- Keep the Hero free of stock-footage UI: no “City study” label, atmospheric-footage caption, Asset Details button, information icon, media toolbar, sound control or Pause/Play button. Keep source and license records in project documentation only.
+
+## 4. NAVIGATION SPECIFICATIONS
+- Nav Style: {{ nav_style }}. Brand left; comma-separated Nav Links: {{ nav_links }}; right CTA: "{{ nav_cta }}".
+- Render a visible logo mark AND the exact brand name. Use a supplied brand logo asset if available. Otherwise choose an original geometric SVG mark or a brand-initial monogram, 32–40px square, with a recognizable silhouette; a tiny glowing dot or plain brand text alone is not a logo. Choose the fallback once during implementation, not randomly on each render. Do not borrow another company's logo or rely on an unverified remote image. If an image fails, show the inline SVG fallback. Keep the adjacent wordmark readable and the combined brand link accessibly named.
+- Navigation labels are an exact content contract: split the supplied `{{ nav_links }}` on commas, trim whitespace, discard empty items and preserve every remaining label, its capitalization and its order. Desktop navigation and the mobile menu must use the same list. Do not replace configured items with generated section names such as Process or FAQ, and do not add, rename or omit items to match the page's continuation sections.
+- Required menu labels, in this exact order:
+{% for item in nav_links.split(',') if item.strip() %}
+  - "{{ item.strip() }}"
+{% endfor %}
+- Use section anchors only when the matching section exists; otherwise open an implemented panel with content relevant to the original menu label. No dead `href="#"` links. Missing destinations must be implemented without changing the configured menu text.
+- Render only the configured navigation style: `{{ nav_style }}`. Do not expose a “Nav Style” switcher, Glass Pill / Full Width toggle, theme picker or other generator settings on the finished website.
+- Glass Pill: centered floating nav, 52px minimum height, 24px inner horizontal padding, 20px top margin, blur({{ glass_blur }}), max-width 1184px. Use `--nav-bg` at 0.68–0.80 alpha, `--nav-text` and a subtle `--nav-border`, with an opaque fallback on the pill only when backdrop blur is unsupported. Apply alpha to the background color, never `opacity` to the entire navigation; logo, labels and buttons stay fully opaque. The city must remain subtly visible through the surface. It must read as an independent neutral navigation surface over the city, not a brand-colored transparent pill.
+- Full Width: full-width header with the same inner container, 64px minimum height and a subtle bottom border. Use `--nav-bg` at 0.72–0.84 alpha, `backdrop-filter: blur({{ glass_blur }})` and `--nav-text` for translucent separation from the Hero; retain an opaque fallback when blur is unsupported. Apply transparency only to the surface, not its text or children. The video still extends beneath it across the entire shell; do not push the media down below the Header or add an empty band.
+- Below 768px replace desktop links with a labeled menu button. Support keyboard opening, Escape, focus return and `aria-expanded`; overlay must sit above all visuals and remain scrollable.
+
+## 5. NON-NEGOTIABLE SPACING & PIXEL CONTRACTS
+- Use an 8px spacing rhythm: 16/24px inside cards, 32/48px between major groups, 80–112px between lower sections on desktop and 48–64px on mobile.
+- Keep content in normal flow; absolute positioning is reserved for decoration inside a bounded stage. Use `min-width: 0` on grid children and avoid viewport-wide negative margins.
+- Visible focus rings, 44px minimum interactive targets, semantic landmarks and heading hierarchy. Decorative layers are `aria-hidden` and `pointer-events: none`.
+- At 360×800, 768×1024, 1440×900 and a short landscape viewport: no horizontal overflow, no overlapping nav/headline/CTAs; essential content stays readable. Verify that the same video/poster reaches all four edges of the Header + Hero shell, the menu stays clearly visible, and the required gap below navigation remains. A framed video, split media column or video below the copy fails acceptance.
+- Check long supplied titles, empty secondary CTA, both alignment modes, keyboard navigation and 200% zoom. Reserve media dimensions to prevent layout shift.
+- Color acceptance: check both navigation styles with a vivid blue background token and with a neutral background token. Header and Hero must remain visibly distinct, menu/CTA text must stay readable over bright and dark video frames, and natural city colors must remain visible. A single saturated blue/purple field across Header and Hero fails acceptance even if text contrast passes.
+
+## 6. VIDEO ASSET & PLAYBACK CONTRACT
+- Footage subject: a low-angle view between city buildings. This is atmospheric stock footage, not evidence of a real product, office, customer or business outcome.
+- Source: [Corporate and business buildings in the city.](https://mixkit.co/free-stock-video/corporate-and-business-buildings-in-the-city-4170/).
+- Direct MP4 (720 variant): `https://assets.mixkit.co/videos/4170/4170-720.mp4`.
+- Low-bandwidth MP4 (360 variant): `https://assets.mixkit.co/videos/4170/4170-360.mp4`.
+- Poster image: `https://assets.mixkit.co/videos/4170/4170-thumb-720-0.jpg`.
+- License: the item page identifies Mixkit Stock Video Free License for commercial/personal projects; retain the source credit in project documentation. License reference: https://mixkit.co/license/#videoFree . Do not resell or redistribute footage as a standalone stock asset.
+- Source links and binary signatures checked on 2026-10-18. Remote CDN availability is not permanent; for production download the selected file and poster into your site's public/media directory and preserve source/license records. Do not invent a local path unless those files have actually been saved there.
+
+### Media Structure
+Use the concrete URLs above to implement this HTML media structure in React (with the appropriate React prop casing):
+```html
+<video muted loop playsinline preload="none" poster="https://assets.mixkit.co/videos/4170/4170-thumb-720-0.jpg" aria-hidden="true">
+  <source data-src="https://assets.mixkit.co/videos/4170/4170-720.mp4" type="video/mp4">
+</video>
+```
+- This is decorative footage. The actual headline, description, CTA, captions describing the product and any essential information remain real HTML outside the video. No source audio or autoplay sound.
+- Reserve the shared shell height before loading, not a media aspect ratio; apply `width:100%; height:100%; object-fit:cover` to its background media. Keep the full-shell poster/background underneath until `playing`, then fade video opacity over 250ms. Poster-only and error states retain the same full-screen composition.
+- Start with poster-only markup. On desktop, after checking reduced-motion, data-saving preference (when available) and visibility, attach the 720 variant to `src`, call `load()` and attempt muted `play()`. If autoplay is denied, keep the poster without adding a Play button or error notice.
+- Use continuous muted loop playback with the `loop` attribute. Do not impose a playback time limit or freeze after five seconds. No visible playback controls and no native `controls` attribute.
+- At widths below 768px, under `prefers-reduced-motion: reduce`, or in data-saving mode, keep the full-screen poster and do not attach a video URL. Do not add a mobile Play button. Do not download both variants or restart playback on resize.
+- Use IntersectionObserver and document visibility to pause offscreen/hidden footage. Resume looping playback only while visible and preferences allow it. Respond to preference changes and clean up media/listeners on unmount.
+- On `error` or failed playback show the real poster; if the poster also fails retain the supplied background and all copy/actions. No endless loading spinner and no broken-image icon.
+- Use only one actively decoding video per Hero. For repeated thumbnails, reuse the poster rather than mounting duplicate looping videos. Let the video loop naturally; do not remount it or reset playback on ordinary component re-renders.
+- Keep text and navigation contrast stable across bright and dark frames using the continuous fixed scrim and the local navigation surface. Strengthen the scrim behind text as needed while keeping city imagery visible elsewhere. Do not rely on footage color grading alone or restore a solid split copy panel.
+- Clip-specific treatment: center the converging building lines with object-position center; do not present the shot as the brand headquarters
+{% if page_mode != 'fixed_single_screen' %}
+- Continue with: an enterprise capability list, a process section and an FAQ. Lower sections use static media and no further autoplay videos.
+{% endif %}
+- Implement working React components and responsive CSS in project files, retain source attribution in project documentation, and present the finished interactive page in live preview. Verify poster-only mobile mode, denied autoplay, failed media, continuous muted looping playback, absence of media controls, exact configured menu labels, visible logo fallback, translucent navigation and reduced-motion behavior. Final output: the rendered page preview, with only a short preview link if needed to access it; no source code or implementation walkthrough.
